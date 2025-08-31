@@ -5,7 +5,6 @@
 - @spec/fixtures : Fixtures folder
 - @spec/rails_helper.rb : Rails helper file
 - @spec/spec_helper.rb : Spec helper file
-- @spec/swagger_helper.rb: Swagger helper file
 
 ## Arrange-Act-Assert
 1. **Arrange**: Set up test data and prerequisites
@@ -58,4 +57,3 @@ end
 - **Test all possible cases**: Testing is a good practice, but if you do not test the edge cases, it will not be useful. Test valid, edge and invalid case.
 - **Expect Syntax**: Always use the expect syntax.
 - **Create only the data you need**
-- **Use factories and not fixtures**: Use the FactoryBot gem
