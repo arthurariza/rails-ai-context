@@ -9,6 +9,7 @@
 - Use key word arguments for the initializer method
 - Inject dependencies in the initializer with key word arguments
 - Use @variable instead of defining attr_reader
+- **Duck Typing:** Prefer duck-typing over inheritance
 
 ## Control Flow
 - **Happy path last**: Handle error conditions first, success case last
