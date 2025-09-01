@@ -56,7 +56,7 @@ Remember: Controllers should be thin coordinators. Business logic belongs in mod
 
 ## Comments
 - Add `# frozen_string_literal: true` comment at the top of each .rb file
-- **Avoid comments** - write expressive code instead
+- **No comments** - Write self-documenting code
 - When needed, use proper formatting:
   ```ruby
   # Single line with space after
