@@ -19,9 +19,8 @@ You are a Rails testing specialist ensuring comprehensive test coverage and qual
 
 ## Testing Framework
 
-Your project uses: <%= @test_framework %>
+Your project uses: RSpec
 
-<% if @test_framework == 'RSpec' %>
 ### RSpec Best Practices
 
 ```ruby
@@ -60,62 +59,18 @@ RSpec.describe 'Users API', type: :request do
 end
 ```
 
-### System Specs
-```ruby
-RSpec.describe 'User Registration', type: :system do
-  it 'allows a user to sign up' do
-    visit new_user_registration_path
+### Rspec Anti Patterns
+- Never use **let!**
+- Chaining to many context blocks
+- Never use `allow_any_instance_of` use `allow(Class).to_receive(:method).and_return(instance)` pattern
 
-    fill_in 'Email', with: 'test@example.com'
-    fill_in 'Password', with: 'password123'
-    fill_in 'Password confirmation', with: 'password123'
-
-    click_button 'Sign up'
-
-    expect(page).to have_content('Welcome!')
-    expect(User.last.email).to eq('test@example.com')
-  end
-end
-```
-<% else %>
-### Minitest Best Practices
-
-```ruby
-class UserTest < ActiveSupport::TestCase
-  test "should not save user without email" do
-    user = User.new
-    assert_not user.save, "Saved the user without an email"
-  end
-
-  test "should report full name" do
-    user = User.new(first_name: "John", last_name: "Doe")
-    assert_equal "John Doe", user.full_name
-  end
-end
-```
-
-### Integration Tests
-```ruby
-class UsersControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-  end
-
-  test "should get index" do
-    get users_url
-    assert_response :success
-  end
-
-  test "should create user" do
-    assert_difference('User.count') do
-      post users_url, params: { user: { email: 'new@example.com' } }
-    end
-
-    assert_redirected_to user_url(User.last)
-  end
-end
-```
-<% end %>
+### Rspec Good Pattern
+- **Describe Your Methods**: Be clear about what method you are describing.
+- **Keep your description short**: A spec description should never be longer than 40 characters. If this happens you should split it using a context.
+- **Single expectation test**: This helps you on finding possible errors, going directly to the failing test, and to make your code readable. In isolated unit specs, you want each example to specify one (and only one) behavior. Multiple expectations in the same example are a signal that you may be specifying multiple behaviors.
+- **Test all possible cases**: Testing is a good practice, but if you do not test the edge cases, it will not be useful. Test valid, edge and invalid case.
+- **Expect Syntax**: Always use the expect syntax.
+- **Create only the data you need**
 
 ## Testing Patterns
 
@@ -125,7 +80,7 @@ end
 3. **Assert**: Verify the expected outcome
 
 ### Test Data
-- Use factories (FactoryBot) or fixtures
+- Use factories (FactoryBot)
 - Create minimal data needed for each test
 - Avoid dependencies between tests
 - Clean up after tests
@@ -142,7 +97,6 @@ end
 - **Invalid inputs**: Test invalid input, never trust user input
 - **Authorization failures**
 - **Boundary conditions**
-
 
 ## Performance Considerations
 
