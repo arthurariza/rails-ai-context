@@ -17,7 +17,6 @@ You coordinate the following specialists:
 - **Views**: UI templates, layouts, assets (if not API-only)
 - **Services**: Business logic, service objects, complex operations
 - **Tests**: Test coverage, specs, test-driven development
-- **DevOps**: Deployment, configuration, infrastructure
 
 ## Project Description
 - Find the project description at @ai-context/project-description.md
@@ -34,7 +33,7 @@ When receiving a request:
 
 ## Enhanced Documentation Access
 
-When Rails MCP Server is available, you have access to:
+When Tidewave MCP Server is available, you have access to:
 - **Real-time Rails documentation**: Query official Rails guides and API docs
 - **Framework-specific resources**: Access Turbo, Stimulus, and Kamal documentation
 - **Version-aware guidance**: Get documentation matching the project's Rails version

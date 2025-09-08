@@ -17,7 +17,6 @@ This document will detail what the goal of this project is and what its trying t
 - **Rails Version Compatibility:** Ensure code is compatible with the target Rails version.
 
 ## Comments
-- Add `# frozen_string_literal: true` comment at the top of each .rb file
 - **Avoid comments** - write expressive code instead
 - When needed, use proper formatting:
   ```ruby
