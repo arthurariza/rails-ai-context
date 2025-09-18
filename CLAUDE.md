@@ -25,6 +25,12 @@ This application is a Ruby On Rails application and its main packages & versions
 ## Documentation Files
 - You must only create documentation files if explicitly requested by the user.
 
+## When AI Should Ask vs Decide
+- ASK: When rules conflict with Rails conventions
+- ASK: When creating new top-level directories
+- DECIDE: When following established patterns
+- DECIDE: When Rails has clear conventions
+
 === mcp rules ===
 
 ## Tidewave
@@ -48,6 +54,11 @@ This application is a Ruby On Rails application and its main packages & versions
 ## Playwright MCP
 - Playwright mcp is available and can be used to interact with the browser, specially usefull when developing the frontend.
 
+## MCP Tool Failures
+- project_eval fails → explain limitation, ask for alternative approach
+- get_models fails → use file system exploration with caveats
+- execute_sql_query fails → check if database is running, suggest fixes
+
 === ruby rules ===
 
 ## Ruby Rules
@@ -63,7 +74,7 @@ This application is a Ruby On Rails application and its main packages & versions
 - **Separate conditions**: Prefer multiple if statements over compound conditions
 
 ### Comments
-- **No comments:** - Write self-documenting code
+- **No comments:** - Write self-documenting code, unless there is something _very_ complex going on.
 
 === rails rules ===
 
@@ -84,96 +95,6 @@ This application is a Ruby On Rails application and its main packages & versions
 - **Database Design**: Ensure proper normalization and indexing
 - **Namespace Models**: Ensure related models are nested under the parent
 - **Model callbacks:** Callbacks should be used only as a last resort
-
-### Model Concerns Organization
-
-#### Location Pattern
-- Use `app/models/[model_name]/[feature].rb` NOT `app/models/concerns/`
-- Example: `app/models/user/avatar.rb`, `app/models/message/searchable.rb`
-
-#### Naming Convention
-- Namespace: `ModelName::FeatureName`
-- Name by capability: `Avatar`, `Searchable`, `Connectable`, `Joinable`
-- NOT by entity: `UserAvatar`, `MessageSearch`
-
-#### Implementation Types
-
-##### Complex concerns - use ActiveSupport::Concern
-<code-snippet name="Complex concerns" lang="ruby">
-module User::Bot
-  extend ActiveSupport::Concern
-
-  included do
-    # callbacks, associations, scopes
-  end
-
-  class_methods do
-    # class methods
-  end
-
-  # instance methods
-end
-</code-snippet>
-
-##### Simple concerns - plain modules
-<code-snippet name="Simple concerns" lang="ruby">
-module Message::Broadcasts
-  def broadcast_create
-    # simple behavior
-  end
-end
-</code-snippet>
-
-##### Mixed concerns - include other modules
-<code-snippet name="Mixed concerns" lang="ruby">
-module User::Mentionable
-  include ActionText::Attachable
-  # additional behavior
-end
-</code-snippet>
-
-### Business Logic Separation
-
-#### Model Concerns Handle:
-- Model-specific behavior and capabilities
-- Lifecycle callbacks and validations
-- Scopes and associations
-- Feature toggles and state
-
-#### Service Objects Handle:
-- Complex workflows spanning multiple models
-- External API integration
-- Multi-step business processes
-- Place in `app/models/[domain]/[action].rb` (e.g., `Room::MessagePusher`)
-
-#### Controllers Handle:
-- Request-specific business logic
-- Authorization and permissions
-- Broadcasting and real-time updates
-- Coordination between models
-
-### Model Inclusion Pattern
-
-Always explicitly include concerns in the model:
-<code-snippet name="Model Inclusion Pattern" lang="ruby">
-class User < ApplicationRecord
-  include Avatar, Bot, Mentionable, Role, Transferable
-  # rest of model
-end
-</code-snippet>
-
-### When to Create New Concerns
-
-#### Create a concern when:
-- Adding a distinct capability to a model (e.g., search, avatars, connections)
-- Behavior is model-specific and reusable
-- Code would otherwise clutter the main model file
-
-#### Don't create a concern when:
-- Logic spans multiple models → use service object
-- Simple one-off methods → keep in main model
-- Infrastructure logic → use lib/ classes
-
 
 === rspec rules ===
 
