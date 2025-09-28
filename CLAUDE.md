@@ -25,11 +25,6 @@ This application is a Ruby On Rails application and its main packages & versions
 ## Documentation Files
 - You must only create documentation files if explicitly requested by the user.
 
-## When AI Should Ask vs Decide
-- ASK: When rules conflict with Rails conventions
-- ASK: When creating new top-level directories
-- DECIDE: When following established patterns
-- DECIDE: When Rails has clear conventions
 
 === mcp rules ===
 
@@ -54,18 +49,11 @@ This application is a Ruby On Rails application and its main packages & versions
 ## Playwright MCP
 - Playwright mcp is available and can be used to interact with the browser, specially usefull when developing the frontend.
 
-## MCP Tool Failures
-- project_eval fails → explain limitation, ask for alternative approach
-- get_models fails → use file system exploration with caveats
-- execute_sql_query fails → check if database is running, suggest fixes
-
 === ruby rules ===
 
 ## Ruby Rules
 
 ### Class Structure
-- **Key word arguments:** Use key word arguments for the initializer method
-- **Dependcy Injection:** Inject dependencies in the initializer with key word arguments
 - **Duck Typing:** Prefer duck-typing over inheritance
 
 ### Control Flow
@@ -89,10 +77,7 @@ This application is a Ruby On Rails application and its main packages & versions
 
 ### Models
 - **Model Design**: Create well-structured ActiveRecord models with appropriate validations
-- **Associations**: Define relationships between models (has_many, belongs_to, has_and_belongs_to_many, etc.)
 - **Migrations**: Write safe, reversible database migrations
-- **Query Optimization**: Implement efficient scopes and query methods
-- **Database Design**: Ensure proper normalization and indexing
 - **Namespace Models**: Ensure related models are nested under the parent
 - **Model callbacks:** Callbacks should be used only as a last resort
 
@@ -103,37 +88,12 @@ This application is a Ruby On Rails application and its main packages & versions
 - When the tests relating to your feature are passing, ask the user if they would like to also run the entire test suite to make sure everything is still passing.
 - You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files, these are core to the application.
 
-### Arrange-Act-Assert
-1. **Arrange**: Set up test data and prerequisites
-2. **Act**: Execute the code being tested
-3. **Assert**: Verify the expected outcome
-
-### Test Data
-- Use factories (FactoryBot) or fixtures
-- Create minimal data needed for each test
-- Avoid dependencies between tests
-- Clean up after tests
-
-### Edge Cases
-- **Handling Empty Datasets:** Ensure code handles empty datasets gracefully.
-- **Handling Large Datasets:** Optimize code to handle large datasets efficiently.
-- **Handling Time Zones:** Be aware of time zone issues when working with dates and times.
-- **Handling Exceptions:** Failing to handle exceptions can cause the application to crash.
-- **Invalid inputs**: Test invalid input, never trust user input
-
-### Coverage Guidelines
-- Aim for high coverage but focus on meaningful tests
-- Test all public methods
-- Test edge cases and error conditions
-- Don't test Rails framework itself
-- Focus on business logic coverage
-
 ### Rspec Anti Patterns
 - Never use **let!**
 - Chaining to many context blocks
 - Never use `allow_any_instance_of` use `allow(Class).to_receive(:method).and_return(instance)` pattern
 
-### Rspec Good Pattern
+### Rspec Good Patterns
 - **Describe Your Methods**: Be clear about what method you are describing.
 - **Keep your description short**: A spec description should never be longer than 40 characters. If this happens you should split it using a context.
 - **Single expectation test**: This helps you on finding possible errors, going directly to the failing test, and to make your code readable. In isolated unit specs, you want each example to specify one (and only one) behavior. Multiple expectations in the same example are a signal that you may be specifying multiple behaviors.
